@@ -1,0 +1,50 @@
+<!-- public/index.html -->
+<!-- Interfaz principal de la app WhatsAppToExcel -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp To Excel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Pantalla de QR previa -->
+    <div id="qr-screen" class="qr-screen">
+        <div class="qr-container">
+            <h2>Para iniciar la app con tus contactos, escanee el QR</h2>
+            <div id="qr-img"></div>
+            <div id="qr-status" class="qr-status">Esperando conexión...</div>
+            <button id="regen-qr" class="big-green" style="margin-top:30px;">Generar nuevo QR</button>
+        </div>
+    </div>
+
+    <!-- Barra lateral de contactos con búsqueda -->
+    <div id="sidebar" class="sidebar">
+        <h2>Contactos</h2>
+        <input type="text" id="sidebar-search-contact" placeholder="Buscar contacto exacto..." oninput="filterContactsSidebar()">
+        <ul id="contact-list"></ul>
+    </div>
+
+    <!-- Lista de contactos seleccionados -->
+    <div id="selected-contacts" class="selected-contacts">
+        <h2>Contactos seleccionados</h2>
+        <ul id="selected-list"></ul>
+        <button class="big-green" onclick="extractMessages()">Extraer mensajes</button>
+    </div>
+
+    <!-- Área central moderna -->
+    <div id="main-content">
+        <h1>WhatsApp To Excel</h1>
+        <div class="actions">
+            <button class="big-green" onclick="extractMessages()">Extraer mensajes de seleccionados</button>
+        </div>
+        <div id="selected-summary"></div>
+    </div>
+
+    <!-- Área de notificaciones -->
+    <div id="notifications"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
