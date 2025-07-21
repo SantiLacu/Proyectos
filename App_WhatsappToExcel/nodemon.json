@@ -1,9 +1,0 @@
-{
-  "watch": ["main.js", "preload.js", "server.js", "public/"],
-  "ext": "js,json,html,css",
-  "ignore": ["node_modules/", "dist/", "extracciones/"],
-  "env": {
-    "NODE_ENV": "development"
-  },
-  "exec": "electron ."
-} 
