@@ -1,0 +1,45 @@
+[
+  {
+    "categoria": "pantalones",
+    "nombre": "JOGGIN",
+    "precio": 23000,
+    "descripcion": "Algodón Frizado y Darlon - Consultar talles",
+    "imagenes": [
+      "Catalogo/pantalones/Producto0/imagenes/pantalon0.jpeg",
+      "Catalogo/pantalones/Producto0/imagenes/pantalon1.jpeg",
+      "Catalogo/pantalones/Producto0/imagenes/pantalon2.jpeg",
+      "Catalogo/pantalones/Producto0/imagenes/pantalon3.jpeg",
+      "Catalogo/pantalones/Producto0/imagenes/pantalon4.jpeg"
+    ]
+  },
+  {
+    "categoria": "pantalones",
+    "nombre": "JEAN",
+    "precio": 30000,
+    "descripcion": "JEAN AZUL RIGIDO - Unisex",
+    "imagenes": [
+      "Catalogo/pantalones/Producto1/imagenes/pantalon0.jpeg"
+    ]
+  },
+  {
+    "categoria": "remeras",
+    "nombre": "REMERA OVERSIZE UNISEX",
+    "precio": 15000,
+    "descripcion": "Algodón - Talle Único",
+    "imagenes": [
+      "Catalogo/remeras/Producto0/imagenes/remera0.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera1.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera2.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera3.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera4.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera5.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera6.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera7.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera8.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera9.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera10.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera11.jpeg",
+      "Catalogo/remeras/Producto0/imagenes/remera12.jpeg"
+    ]
+  }
+]
