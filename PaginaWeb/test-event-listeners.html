@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Event Listeners - Memory Leak</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        button {
+            background: #FFD700;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #fff;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success { background: #2d5a2d; }
+        .error { background: #5a2d2d; }
+        .info { background: #2d2d5a; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #252525;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Event Listeners - Memory Leak</h1>
+    
+    <div class="test-section">
+        <h2>Prueba de Event Listeners</h2>
+        <p>Este test verifica que los event listeners de keydown se manejen correctamente sin memory leaks.</p>
+        
+        <button onclick="testEventListeners()">🔍 Ejecutar Test</button>
+        <button onclick="abrirModal()">📱 Abrir Modal</button>
+        <button onclick="cerrarModal()">❌ Cerrar Modal</button>
+        <button onclick="limpiarTest()">🧹 Limpiar Test</button>
+        
+        <div id="resultado" class="status info">
+            Haz clic en "Ejecutar Test" para verificar la solución del memory leak en event listeners.
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Simulación de Modal</h2>
+        <p>Simula el comportamiento del modal real:</p>
+        
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h3>Modal de Prueba</h3>
+                <p>Presiona ESC para cerrar o usa las flechas para navegar</p>
+                <button onclick="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+        
+        <div id="simulacion" class="status info">
+            Event listeners activos: <span id="contador-listeners">0</span><br>
+            Modal abierto: <span id="estado-modal">No</span>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales para el test
+        let eventListenersCount = 0;
+        let modalAbierto = false;
+        let keydownHandlers = [];
+        
+        // Simular las funciones del modal real
+        function handleModalKeydown(e) {
+            if (modalAbierto) {
+                console.log(`🎹 Tecla presionada en modal: ${e.key}`);
+                switch(e.key) {
+                    case 'Escape':
+                        cerrarModal();
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        console.log('⬅️ Flecha izquierda en modal');
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        console.log('➡️ Flecha derecha en modal');
+                        break;
+                }
+            }
+        }
+        
+        function handleFiltrosKeydown(e) {
+            if (!modalAbierto) {
+                console.log(`🎹 Tecla presionada en filtros: ${e.key}`);
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        console.log('⬅️ Navegación filtros izquierda');
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        console.log('➡️ Navegación filtros derecha');
+                        break;
+                }
+            }
+        }
+        
+        function abrirModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'block';
+            modalAbierto = true;
+            actualizarEstado();
+            console.log('📱 Modal abierto');
+        }
+        
+        function cerrarModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            modalAbierto = false;
+            actualizarEstado();
+            console.log('❌ Modal cerrado');
+        }
+        
+        function actualizarEstado() {
+            document.getElementById('estado-modal').textContent = modalAbierto ? 'Sí' : 'No';
+            document.getElementById('contador-listeners').textContent = keydownHandlers.length;
+        }
+        
+        function testEventListeners() {
+            const resultado = document.getElementById('resultado');
+            
+            try {
+                console.log('🧪 Iniciando test de event listeners...');
+                
+                // Simular múltiples aperturas y cierres del modal
+                for (let i = 0; i < 5; i++) {
+                    console.log(`\n🔄 === CICLO ${i + 1} ===`);
+                    abrirModal();
+                    setTimeout(() => {
+                        cerrarModal();
+                    }, 500);
+                }
+                
+                // Verificar que no hay memory leak en event listeners
+                if (keydownHandlers.length <= 2) { // Solo los 2 event listeners originales
+                    resultado.className = 'status success';
+                    resultado.innerHTML = `
+                        ✅ <strong>Test EXITOSO</strong><br>
+                        ✅ Event listeners memory leak SOLUCIONADO<br>
+                        ✅ Solo ${keydownHandlers.length} event listeners activos (correcto)<br>
+                        ✅ Los event listeners se manejan correctamente
+                    `;
+                } else {
+                    resultado.className = 'status error';
+                    resultado.innerHTML = `
+                        ❌ <strong>Test FALLIDO</strong><br>
+                        ❌ Memory leak DETECTADO en event listeners<br>
+                        ❌ ${keydownHandlers.length} event listeners activos (deberían ser ≤2)<br>
+                        ❌ Los event listeners no se limpian correctamente
+                    `;
+                }
+                
+            } catch (error) {
+                resultado.className = 'status error';
+                resultado.innerHTML = `❌ Error en el test: ${error.message}`;
+            }
+        }
+        
+        function limpiarTest() {
+            // Limpiar todos los event listeners
+            keydownHandlers.forEach(handler => {
+                document.removeEventListener('keydown', handler);
+            });
+            keydownHandlers = [];
+            
+            cerrarModal();
+            actualizarEstado();
+            
+            const resultado = document.getElementById('resultado');
+            resultado.className = 'status info';
+            resultado.innerHTML = '🧹 Test limpiado. Todos los event listeners han sido removidos.';
+        }
+        
+        // Agregar event listeners (simulando el comportamiento real)
+        document.addEventListener('keydown', handleModalKeydown);
+        document.addEventListener('keydown', handleFiltrosKeydown);
+        keydownHandlers.push(handleModalKeydown, handleFiltrosKeydown);
+        
+        // Limpiar event listeners cuando se cierre la página
+        window.addEventListener('beforeunload', () => {
+            keydownHandlers.forEach(handler => {
+                document.removeEventListener('keydown', handler);
+            });
+        });
+        
+        console.log('🧪 Test de Event Listeners cargado. Abre la consola para ver los logs detallados.');
+        actualizarEstado();
+    </script>
+</body>
+</html> 

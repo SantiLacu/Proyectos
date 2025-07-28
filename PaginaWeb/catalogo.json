@@ -5,11 +5,15 @@
     "precio": 23000,
     "descripcion": "Algodón Frizado y Darlon - Consultar talles",
     "imagenes": [
-      "Catalogo/pantalones/Producto0/imagenes/pantalon0.jpeg",
-      "Catalogo/pantalones/Producto0/imagenes/pantalon1.jpeg",
-      "Catalogo/pantalones/Producto0/imagenes/pantalon2.jpeg",
-      "Catalogo/pantalones/Producto0/imagenes/pantalon3.jpeg",
-      "Catalogo/pantalones/Producto0/imagenes/pantalon4.jpeg"
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon0.jpeg",
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon1.jpg",
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon2.jpeg",
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon3.jpg",
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon4 (2).jpeg",
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon5.jpg",
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon6.jpeg",
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon7.jpeg",
+      "Catalogo\\pantalones\\Producto0\\imagenes\\pantalon7.jpg"
     ]
   },
   {
@@ -18,7 +22,9 @@
     "precio": 30000,
     "descripcion": "JEAN AZUL RIGIDO - Unisex",
     "imagenes": [
-      "Catalogo/pantalones/Producto1/imagenes/pantalon0.jpeg"
+      "Catalogo\\pantalones\\Producto1\\imagenes\\pantalon0.jpeg",
+      "Catalogo\\pantalones\\Producto1\\imagenes\\pantalon1.jpg",
+      "Catalogo\\pantalones\\Producto1\\imagenes\\pantalon2.jpg"
     ]
   },
   {
@@ -27,19 +33,29 @@
     "precio": 15000,
     "descripcion": "Algodón - Talle Único",
     "imagenes": [
-      "Catalogo/remeras/Producto0/imagenes/remera0.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera1.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera2.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera3.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera4.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera5.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera6.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera7.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera8.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera9.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera10.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera11.jpeg",
-      "Catalogo/remeras/Producto0/imagenes/remera12.jpeg"
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera0.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera1.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera10.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera11.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera12.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera2.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera3.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera4.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera5.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera6.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera7.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera8.jpeg",
+      "Catalogo\\remeras\\Producto0\\imagenes\\remera9.jpeg"
+    ]
+  },
+  {
+    "categoria": "remeras",
+    "nombre": "Chaleco",
+    "precio": 5000,
+    "descripcion": "Chaleco de Lana - Todos los colores",
+    "imagenes": [
+      "Catalogo\\remeras\\Producto1\\imagenes\\chaleco0.jpg",
+      "Catalogo\\remeras\\Producto1\\imagenes\\chaleco1.jpg"
     ]
   }
 ]

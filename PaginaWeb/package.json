@@ -1,0 +1,41 @@
+{
+  "name": "js-indumentaria-website",
+  "version": "2.0.0",
+  "description": "Sitio web optimizado para JS Indumentaria con mejoras de rendimiento",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "generate-catalog": "node generarCatalogo.js",
+    "optimize-images": "node optimizarImagenes.js",
+    "optimize-report": "node optimizarImagenes.js --reporte",
+    "convert-heic": "node convertirHEIC.js",
+    "analyze-heic": "node convertirHEIC.js analizar",
+    "build": "npm run generate-catalog && npm run optimize-images",
+    "test-memory": "echo 'Abrir test-memory-leak.html en el navegador'",
+    "test-events": "echo 'Abrir test-event-listeners.html en el navegador'"
+  },
+  "keywords": [
+    "indumentaria",
+    "moda",
+    "catálogo",
+    "optimización",
+    "webp",
+    "lazy-loading"
+  ],
+  "author": "JS Indumentaria",
+  "license": "MIT",
+  "devDependencies": {
+    "sharp": "^0.32.6"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/js-indumentaria/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/js-indumentaria/website/issues"
+  },
+  "homepage": "https://js-indumentaria.com"
+} 

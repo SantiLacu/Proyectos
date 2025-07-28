@@ -78,27 +78,35 @@ PaginaWeb/
 - **Menú responsive** que se adapta a móviles
 - **Navegación por teclado** para accesibilidad
 
-### 2. **Sección Hero**
-- **Imagen de fondo** con overlay
+### 2. **Optimización de Imágenes**
+- **Lazy loading** inteligente con Intersection Observer
+- **Formatos WebP** optimizados para mejor compresión
+- **Imágenes responsivas** con diferentes tamaños
+- **Placeholders animados** mientras cargan las imágenes
+
+### 3. **Sección Hero**
+- **Imagen de fondo optimizada** con overlay
 - **Título llamativo** y descripción
 - **Botón CTA** que lleva al catálogo
 - **Diseño impactante** para primera impresión
 
-### 3. **Catálogo de Productos**
+### 4. **Catálogo de Productos**
 - **Grid responsive** de productos
 - **Filtros dinámicos** por categorías
 - **Slideshow automático** de imágenes
 - **Indicadores visuales** para múltiples fotos
 - **Efectos hover** con escalado y sombras
+- **Lazy loading** para mejor rendimiento
 
-### 4. **Modal de Producto**
-- **Vista a pantalla completa** de la imagen
-- **Navegación con flechas** entre imágenes
-- **Información en hover** (nombre, precio, descripción)
-- **Botón de WhatsApp** para compra directa
-- **Múltiples formas de cierre**
+### 5. **Modal con Transiciones Suaves**
+- **Vista a pantalla completa** de productos
+- **Transiciones suaves** al cambiar imágenes (fade + escala)
+- **Navegación múltiple**: flechas, gestos táctiles, teclado
+- **Información en hover** que aparece al pasar el mouse
+- **Múltiples formas de cierre** (X, click en fondo, tecla Escape)
+- **Fondo borroso** del contenido subyacente
 
-### 5. **Footer**
+### 6. **Footer**
 - **Información de contacto** con números de WhatsApp
 - **Enlaces a redes sociales** (Instagram, Facebook, TikTok)
 - **Botón destacado** de Instagram
@@ -107,18 +115,27 @@ PaginaWeb/
 ## 💻 Instalación y Uso
 
 ### Requisitos Previos
-- **Node.js** instalado en tu sistema
+- **Node.js** instalado en tu sistema (versión 14+)
 - **Navegador web** moderno
+- **Sharp** para optimización de imágenes (se instala automáticamente)
 
 ### Pasos de Instalación
 
 1. **Clona o descarga** el proyecto
 2. **Abre una terminal** en la carpeta del proyecto
-3. **Ejecuta el script** para generar el catálogo:
+3. **Instala las dependencias** (opcional, para optimización de imágenes):
+   ```bash
+   npm install
+   ```
+4. **Ejecuta el script** para generar el catálogo:
    ```bash
    node generarCatalogo.js
    ```
-4. **Abre el archivo** `index.html` en tu navegador
+5. **Optimiza las imágenes** (opcional):
+   ```bash
+   npm run optimize-images
+   ```
+6. **Abre el archivo** `index.html` en tu navegador
 
 ### Para Desarrollo Local
 ```bash

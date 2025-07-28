@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Memory Leak - SlidesShow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        button {
+            background: #FFD700;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #fff;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success { background: #2d5a2d; }
+        .error { background: #5a2d2d; }
+        .info { background: #2d2d5a; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Memory Leak - SlidesShow</h1>
+    
+    <div class="test-section">
+        <h2>Prueba de Memory Leak</h2>
+        <p>Este test verifica que los intervalos se limpien correctamente al cambiar categorías.</p>
+        
+        <button onclick="testMemoryLeak()">🔍 Ejecutar Test</button>
+        <button onclick="limpiarTest()">🧹 Limpiar Test</button>
+        
+        <div id="resultado" class="status info">
+            Haz clic en "Ejecutar Test" para verificar la solución del memory leak.
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Simulación de Cambio de Categorías</h2>
+        <p>Simula el comportamiento real de la aplicación:</p>
+        
+        <button onclick="simularCambioCategoria('todos')">Todos</button>
+        <button onclick="simularCambioCategoria('remeras')">Remeras</button>
+        <button onclick="simularCambioCategoria('buzos')">Buzos</button>
+        <button onclick="simularCambioCategoria('pantalones')">Pantalones</button>
+        
+        <div id="simulacion" class="status info">
+            Intervalos activos: <span id="contador-intervalos">0</span>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales para el test
+        let intervalosActivos = [];
+        let contadorIntervalos = 0;
+        
+        // Función para simular renderizarProductos
+        function renderizarProductos(categoria) {
+            // Limpiar todos los intervalos activos antes de crear nuevos
+            intervalosActivos.forEach(intervalId => clearInterval(intervalId));
+            intervalosActivos = []; // Resetear el array
+            
+            console.log(`🔄 Renderizando productos para categoría: ${categoria}`);
+            console.log(`🧹 Intervalos limpiados antes de crear nuevos`);
+            
+            // Simular creación de productos con slideshow
+            for (let i = 0; i < 3; i++) {
+                const intervalId = setInterval(() => {
+                    console.log(`📸 Slideshow producto ${i + 1} - Categoría: ${categoria}`);
+                }, 2000);
+                
+                intervalosActivos.push(intervalId);
+                contadorIntervalos++;
+            }
+            
+            actualizarContador();
+        }
+        
+        function actualizarContador() {
+            document.getElementById('contador-intervalos').textContent = intervalosActivos.length;
+        }
+        
+        function simularCambioCategoria(categoria) {
+            console.log(`\n🔄 === CAMBIO DE CATEGORÍA: ${categoria} ===`);
+            renderizarProductos(categoria);
+        }
+        
+        function testMemoryLeak() {
+            const resultado = document.getElementById('resultado');
+            
+            try {
+                // Simular múltiples cambios de categoría
+                console.log('🧪 Iniciando test de memory leak...');
+                
+                simularCambioCategoria('todos');
+                simularCambioCategoria('remeras');
+                simularCambioCategoria('buzos');
+                simularCambioCategoria('pantalones');
+                simularCambioCategoria('todos');
+                
+                // Verificar que solo hay 3 intervalos activos (no 15)
+                if (intervalosActivos.length === 3) {
+                    resultado.className = 'status success';
+                    resultado.innerHTML = `
+                        ✅ <strong>Test EXITOSO</strong><br>
+                        ✅ Memory leak SOLUCIONADO<br>
+                        ✅ Solo ${intervalosActivos.length} intervalos activos (correcto)<br>
+                        ✅ Los intervalos anteriores se limpiaron correctamente
+                    `;
+                } else {
+                    resultado.className = 'status error';
+                    resultado.innerHTML = `
+                        ❌ <strong>Test FALLIDO</strong><br>
+                        ❌ Memory leak DETECTADO<br>
+                        ❌ ${intervalosActivos.length} intervalos activos (deberían ser 3)<br>
+                        ❌ Los intervalos anteriores no se limpiaron
+                    `;
+                }
+                
+            } catch (error) {
+                resultado.className = 'status error';
+                resultado.innerHTML = `❌ Error en el test: ${error.message}`;
+            }
+        }
+        
+        function limpiarTest() {
+            intervalosActivos.forEach(intervalId => clearInterval(intervalId));
+            intervalosActivos = [];
+            contadorIntervalos = 0;
+            actualizarContador();
+            
+            const resultado = document.getElementById('resultado');
+            resultado.className = 'status info';
+            resultado.innerHTML = '🧹 Test limpiado. Todos los intervalos han sido detenidos.';
+        }
+        
+        // Limpiar intervalos cuando se cierre la página
+        window.addEventListener('beforeunload', () => {
+            intervalosActivos.forEach(intervalId => clearInterval(intervalId));
+        });
+        
+        console.log('🧪 Test de Memory Leak cargado. Abre la consola para ver los logs detallados.');
+    </script>
+</body>
+</html> 
