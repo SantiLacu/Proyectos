@@ -35,7 +35,7 @@
   <section id="catalogo">
     <h2>Nuestro Catálogo</h2>
     <div class="filtros"></div>
-    <div class="productos-grid"></div>
+    <div class="productos-grid" aria-live="polite"></div>
   </section>
 </main>
 
@@ -57,7 +57,7 @@
 </footer>
 
 <!-- Modal -->
-<div id="producto-modal" class="modal" style="display:none;">
+<div id="producto-modal" class="modal" style="display:none;" aria-live="polite">
   <div class="modal-fondo" tabindex="0"></div>
   <div class="modal-contenido">
     <button class="modal-cerrar" aria-label="Cerrar">&times;</button>
@@ -71,6 +71,8 @@
     <div class="modal-info">
       <h3 class="modal-nombre"></h3>
       <div class="modal-precio"></div>
+      <div class="modal-shipping"></div>
+      <div class="modal-total"></div>
       <div class="modal-descripcion"></div>
     </div>
     <a class="modal-whatsapp" href="#" target="_blank">Comprar por WhatsApp</a>

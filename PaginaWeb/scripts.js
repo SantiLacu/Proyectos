@@ -17,6 +17,13 @@ document.querySelectorAll('#nav-menu a').forEach(link => {
 
 let productosGlobal = [];
 let categoriaActual = 'todos';
+let productIntervals = [];
+
+// Limpia todos los intervalos de slideshow de productos activos
+function clearProductIntervals() {
+  productIntervals.forEach(intervalId => clearInterval(intervalId));
+  productIntervals = [];
+}
 
 // Función para renderizar los filtros de categoría dinámicamente
 function renderizarFiltros(productos) {
@@ -57,6 +64,8 @@ fetch('catalogo.json?' + new Date().getTime())
 
 function renderizarProductos() {
   const grid = document.querySelector('.productos-grid');
+  // Limpiar intervalos antes de renderizar para evitar memory leaks
+  clearProductIntervals();
   grid.innerHTML = '';
   let productosFiltrados = productosGlobal;
   if (categoriaActual && categoriaActual !== 'todos') {
@@ -75,7 +84,7 @@ function renderizarProductos() {
     }
     div.innerHTML = `
       <div class="producto-img-container">
-        <img src="${prod.imagenes[0]}" alt="${prod.nombre}" class="producto-img">
+        <img data-src="${prod.imagenes[0]}" alt="${prod.nombre}" class="producto-img lazy-load" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
         ${indicadores}
       </div>
     `;
@@ -112,6 +121,7 @@ function renderizarProductos() {
 
       // Intervalo 25% más lento (2500ms en lugar de 2000ms)
       let intervalId = setInterval(cambiarImagen, 2500);
+      productIntervals.push(intervalId);
 
       // Pausar slideshow al pasar el mouse
       div.addEventListener('mouseenter', () => {
@@ -126,9 +136,30 @@ function renderizarProductos() {
         imgEl.style.transform = 'scale(1)';
         // Reiniciar slideshow
         intervalId = setInterval(cambiarImagen, 2500);
+        productIntervals.push(intervalId);
       });
     }
   });
+
+  // Iniciar lazy loading para las nuevas imágenes
+  setupLazyLoading();
+}
+
+function setupLazyLoading() {
+  const lazyImages = document.querySelectorAll('.lazy-load');
+
+  const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.classList.remove('lazy-load');
+        observer.unobserve(img);
+      }
+    });
+  }, { rootMargin: "0px 0px 100px 0px" }); // Carga imágenes 100px antes de que entren en el viewport
+
+  lazyImages.forEach(img => lazyLoadObserver.observe(img));
 }
 
 // Modal
@@ -136,6 +167,8 @@ const modal = document.getElementById('producto-modal');
 const modalImg = modal.querySelector('.modal-imagen');
 const modalNombre = modal.querySelector('.modal-nombre');
 const modalPrecio = modal.querySelector('.modal-precio');
+const modalShipping = modal.querySelector('.modal-shipping');
+const modalTotal = modal.querySelector('.modal-total');
 const modalDescripcion = modal.querySelector('.modal-descripcion');
 const modalWhatsapp = modal.querySelector('.modal-whatsapp');
 let imagenActual = 0;
@@ -154,11 +187,23 @@ function mostrarModal(idx) {
   configurarGestosTactiles();
 }
 
+function calcularCostoEnvio(precioProducto) {
+  if (precioProducto > 30000) {
+    return 0; // Envío gratis para compras mayores a $30,000
+  }
+  return 1000; // Costo de envío fijo
+}
+
 function actualizarModal(prod) {
+  const costoEnvio = calcularCostoEnvio(prod.precio);
+  const costoTotal = prod.precio + costoEnvio;
+
   modalImg.src = imagenesProducto[imagenActual];
   modalImg.alt = prod.nombre;
   modalNombre.textContent = prod.nombre;
-  modalPrecio.textContent = `$${prod.precio}`;
+  modalPrecio.textContent = `Precio: $${prod.precio}`;
+  modalShipping.textContent = `Costo de envío: ${costoEnvio === 0 ? 'Gratis' : '$' + costoEnvio}`;
+  modalTotal.textContent = `Total: $${costoTotal}`;
   modalDescripcion.textContent = prod.descripcion;
   modalWhatsapp.href = `https://api.whatsapp.com/send?phone=5491170583125&text=Hola,%20quiero%20comprar%20${encodeURIComponent(prod.nombre)}`;
 }
